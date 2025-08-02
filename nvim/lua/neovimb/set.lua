@@ -31,3 +31,7 @@ vim.opt.colorcolumn = "100"
 
 vim.g.mapleader = " "
 
+vim.opt.shortmess:append("I")  -- Disable intro message
+vim.opt.shortmess:append("c")  -- Suppress ins-completion-menu messages
+vim.opt.shortmess:append("F")  -- Suppress file info on startup
+

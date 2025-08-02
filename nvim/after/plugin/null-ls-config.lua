@@ -1,67 +1,66 @@
--- Setup null-ls
-local null_ls = require('null-ls')
+-- null-ls-config.lua
+local null_ls = require("null-ls")
 local formatting = null_ls.builtins.formatting
 
 null_ls.setup({
   sources = {
+    -- JavaScript / TypeScript / HTML / CSS
     formatting.prettier,
+
+    -- Python
     formatting.black.with({ extra_args = { "--fast" } }),
+    formatting.isort,
+
+    -- Go
     formatting.gofmt,
+
+    -- Shell scripts
     formatting.shfmt,
-    formatting.clang_format,
+
+    -- C / C++ using Google style
+    formatting.clang_format.with({
+      extra_args = { "--style=Google" },
+    }),
+
+    -- CMake
     formatting.cmake_format,
-    formatting.dart_format,
+
+    -- Dart (uncomment if needed)
+    -- formatting.dart_format,
+
+    -- Lua
     formatting.lua_format.with({
       extra_args = {
-        '--no-keep-simple-function-one-line', '--no-break-after-operator', '--column-limit=100',
-        '--break-after-table-lb', '--indent-width=2'
-      }
+        "--no-keep-simple-function-one-line",
+        "--no-break-after-operator",
+        "--column-limit=100",
+        "--break-after-table-lb",
+        "--indent-width=2",
+      },
     }),
-    formatting.isort,
-    formatting.codespell.with({ filetypes = { 'markdown' } })
+
+    -- Markdown / Docs
+    formatting.codespell.with({
+      filetypes = { "markdown" },
+    }),
   },
+
+  -- Auto-format on save
   on_attach = function(client, bufnr)
-    vim.api.nvim_create_augroup("LspFormatting", { clear = true })
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      group = "LspFormatting",
-      buffer = bufnr,
-      callback = function()
-        vim.lsp.buf.format({ async = true })
-      end,
-    })
-  end
+    if client and client.supports_method and client.supports_method("textDocument/formatting") then
+      local augroup = vim.api.nvim_create_augroup("LspFormatting", { clear = true })
+
+      vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        group = augroup,
+        buffer = bufnr,
+        callback = function()
+          vim.lsp.buf.format({ bufnr = bufnr, async = true })
+        end,
+
+      })
+    end
+  end,
 })
-
--- Setup hdl_checker LSP
--- local lspconfig = require('lspconfig')
--- local lspconfig = require('vim.lsp')
---
--- if not lspconfig.hdl_checker then
---   require('lspconfig.configs').hdl_checker = {
---     default_config = {
---       cmd = { "hdl_checker", "--lsp" },
---       filetypes = { "vhdl", "verilog", "systemverilog" },
---       root_dir = function(fname)
---         return lspconfig.util.find_git_ancestor(fname)
---             or lspconfig.util.root_pattern('.hdl_checker.config')(fname)
---             or lspconfig.util.path.dirname(fname)
---       end,
---       settings = {},
---     }
---   }
--- end
-
--- lspconfig.hdl_checker.setup({
---   on_attach = function(client, bufnr)
---     -- Optional: Enable formatting or keymaps specific to hdl_checker here
---     vim.api.nvim_create_augroup("LspFormattingHDL", { clear = true })
---     vim.api.nvim_create_autocmd("BufWritePre", {
---       group = "LspFormattingHDL",
---       buffer = bufnr,
---       callback = function()
---         vim.lsp.buf.format({ async = true })
---       end,
---     })
---   end,
--- })
-
+E

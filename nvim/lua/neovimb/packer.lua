@@ -59,7 +59,12 @@ return require('packer').startup(function(use)
     -- Copilot
     use {"github/copilot.vim"}
 
-    use ('jose-elias-alvarez/null-ls.nvim')
+    -- use ('jose-elias-alvarez/null-ls.nvim')
+    use{
+      "jose-elias-alvarez/null-ls.nvim",
+      requires = { "nvim-lua/plenary.nvim" },
+    }
+    use ('nvimtools/none-ls.nvim')
 
     use {
       'nvim-tree/nvim-tree.lua',
