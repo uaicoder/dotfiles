@@ -21,7 +21,8 @@ exec_always --no-startup-id sh -c "sleep 1 && xrandr \
 
 
 ###### WALLPAPER ######
-exec_always feh --bg-scale /home/bruno/Pictures/wallpapers/space-wp-01.png
+# exec_always feh --bg-scale /home/bruno/Pictures/wallpapers/space-wp-01.png
+exec_always --no-startup-id feh --bg-scale "$(find /home/bruno/Pictures/wallpapers/ -type f | shuf -n 1)"
 
 ###### COMPOSITOR (TRANSPARENCY EFFECTS) ######
 exec_always --no-startup-id compton

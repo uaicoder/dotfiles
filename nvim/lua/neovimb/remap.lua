@@ -30,6 +30,10 @@ vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 
 -- This is going to get me cancelled
 vim.keymap.set("i", "<C-c>", "<Esc>")
+-- in your remap.lua or init.lua
+vim.keymap.set('t', '<C-c>', [[<C-\><C-n>]], { noremap = true })
+
+vim.keymap.set("n", "<C-s>", ":w<CR>", {silent =false})
 
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
@@ -44,9 +48,39 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.dotfiles/nvim/.config/nvim/lua/theprimeagen/packer.lua<CR>");
-vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>");
 
 vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
 end)
+
+-- Customize neovim terminal 
+vim.api.nvim_create_autocmd('TermOpen',{
+    group = vim.api.nvim_create_augroup('custom-term-open',{clear=true}),
+    callback =  function()
+        vim.opt.number = true
+        vim.opt.relativenumber = true
+    end,
+}
+)
+
+-- Tiny terminal
+local job_id = 0
+vim.keymap.set("n","<leader>st", function()
+    vim.cmd.vnew()
+    vim.cmd.term()
+    vim.cmd.wincmd("J")
+    vim.api.nvim_win_set_height(0,10)
+    job_id = vim.bo.channel
+
+end)
+
+vim.keymap.set("n","<leader>example", function()
+    -- make
+    -- go build, go test ./qwerty
+    vim.fn.chansend(job_id, {"ls -la\r\n"})
+end)
+
+
+
+
 
