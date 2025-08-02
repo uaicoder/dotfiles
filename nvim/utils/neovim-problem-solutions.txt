@@ -1,0 +1,6 @@
+choco install -y python3
+add python to the path when install for the first time.
+brew install node
+1) powershel náo estava no path
+2) versao de python nao foi aceita por alguns pacotes
+	-> execute heath command

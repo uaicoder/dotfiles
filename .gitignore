@@ -1,0 +1,28 @@
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Editor/IDE temp files
+*~
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# Neovim generated/plugin files
+nvim/plugin/packer_compiled.lua
+nvim/.netrwhist
+nvim/undodir/
+nvim/utils/neovim-problem-solutions.txt
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Log files
+*.log
+
+# Zsh runtime files
+.zsh_history
+.zcompdump*
+

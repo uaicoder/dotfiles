@@ -1,0 +1,192 @@
+# ──────────────────────────────────────────────────────────────
+#  i3 Window Manager Configuration - Customized and Organized
+# ──────────────────────────────────────────────────────────────
+###### MODIFIER KEY ######
+set $mod Mod1
+
+###### FONT ######
+font pango:Inconsolata Nerd Font Mono 11
+
+###### AUTOSTART ENVIRONMENT ######
+exec --no-startup-id dex --autostart --environment i3
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id nm-applet
+###### MONITOR CONFIGURATION ######
+exec_always --no-startup-id sh -c "sleep 1 && xrandr \
+  --output DP-1 --off \
+  --output DP-2 --primary --mode 1920x1080 --rate 144 --pos 1920x0 --rotate normal \
+  --output DP-3 --off \
+  --output HDMI-1 --mode 1920x1080 --pos 0x0 --rotate normal"
+
+
+
+###### WALLPAPER ######
+exec_always feh --bg-scale /home/bruno/Pictures/wallpapers/space-wp-01.png
+
+###### COMPOSITOR (TRANSPARENCY EFFECTS) ######
+exec_always --no-startup-id compton
+###### STATUS BAR ######
+bar {
+    status_command i3status
+
+    colors {
+        background         #2f343f
+        separator          #757575
+
+        focused_workspace  #00696f #00696f #f3f4f5  # Subtle but clearer cyan
+        inactive_workspace #2f343f #2f343f #676E7D
+        urgent_workspace   #E53935 #E53935 #f3f4f5
+    }
+}
+
+
+
+#
+###### LOCK SCREEN SHORTCUT ######
+bindsym $mod+Shift+x exec i3lock
+
+###### VOLUME & MIC KEYS ######
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute    exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+###### APPLICATION LAUNCHERS ######
+bindsym $mod+Return exec i3-sensible-terminal -e zsh
+bindsym $mod+d exec --no-startup-id "rofi -show drun -font 'Inconsolata Nerd Font Mono 12'"
+bindsym $mod+Shift+s exec --no-startup-id flameshot gui
+
+###### WINDOW MANAGEMENT ######
+bindsym $mod+Shift+q kill
+floating_modifier $mod
+
+###### FOCUS WINDOW DIRECTIONAL ######
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+###### MOVE WINDOW ######
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+###### WINDOW MODES ######
+bindsym $mod+ctrl+h split h
+bindsym $mod+ctrl+v split v
+bindsym $mod+f fullscreen toggle
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+bindsym $mod+a focus parent
+
+###### RESIZE MODE ######
+mode "resize" {
+    bindsym h resize shrink width 10 px or 10 ppt
+    bindsym l resize grow width 10 px or 10 ppt
+    bindsym k resize grow height 10 px or 10 ppt
+    bindsym j resize shrink height 10 px or 10 ppt
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "resize"
+
+###### WORKSPACES ######
+set $ws1 "1: Firefox  "
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10: Music "
+
+###### WORKSPACE SWITCHING ######
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+###### MOVE CONTAINER TO WORKSPACE ######
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+###### ASSIGN WORKSPACES TO MONITORS ######
+workspace $ws1 output HDMI-1
+workspace $ws10 output HDMI-1
+
+###### ASSIGN WORKSPACE TO MONITORS ######
+# Move current workspace to the output on the left
+bindsym $mod+Control+Left move workspace to output left
+# Move current workspace to the output on the right
+bindsym $mod+Control+Right move workspace to output right
+
+###### ASSIGN APPLICATIONS TO WORKSPACES ######
+assign [class="firefox_firefox"] $ws1
+
+###### RELOAD / EXIT ######
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# Start htop with a custom title
+exec_always --no-startup-id i3-sensible-terminal -t "Htop" -e htop
+###### GAPS ######
+gaps inner 5
+gaps outer 1
+smart_gaps off
+
+###### COLORS ######
+set $bg-color               #2f343f
+set $inactive-bg-color      #2f343f
+set $text-color             #f3f4f5
+set $inactive-text-color    #676E7D
+set $urgent-bg-color        #E53935
+set $indicator-color        #00ff00
+
+client.focused          $bg-color           $bg-color          $text-color          $indicator-color
+client.unfocused        $inactive-bg-color  $inactive-bg-color $inactive-text-color $indicator-color
+client.focused_inactive $inactive-bg-color  $inactive-bg-color $inactive-text-color $indicator-color
+client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          $indicator-color
+
+for_window [class=".*"] border pixel 1
+
+# Neon light blue theme - subtle and clean
+client.focused          #61dafb #1e1e2f #d0d0d0 #61dafb #61dafb
+client.focused_inactive #3a9edb #121622 #a0a0a0 #3a9edb #3a9edb
+client.unfocused        #274b6d #121622 #707070 #274b6d #274b6d
+client.urgent           #ff6f91 #121622 #ffffff #ff6f91 #ff6f91
+client.placeholder      #000000 #000000 #ffffff #000000 #000000
