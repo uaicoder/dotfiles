@@ -11,10 +11,10 @@ Thumbs.db
 
 # Neovim generated/plugin files
 nvim/plugin/packer_compiled.lua
+nvim/plugin/packer_compiled.lua
 nvim/.netrwhist
 nvim/undodir/
 nvim/utils/neovim-problem-solutions.txt
-
 # Python cache
 __pycache__/
 *.py[cod]

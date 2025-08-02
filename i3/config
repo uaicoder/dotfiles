@@ -157,13 +157,22 @@ bindsym $mod+Control+Right move workspace to output right
 ###### ASSIGN APPLICATIONS TO WORKSPACES ######
 assign [class="firefox_firefox"] $ws1
 
+
+# Float dialogs and popups by window type
+for_window [window_type="dialog"] floating enable
+
+# Float transient windows (like popups)
+# for_window [window_transient_for] floating enable
+
+
+
 ###### RELOAD / EXIT ######
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 # Start htop with a custom title
-exec_always --no-startup-id i3-sensible-terminal -t "Htop" -e htop
+exec --no-startup-id i3-sensible-terminal -t "Htop" -e htop
 ###### GAPS ######
 gaps inner 5
 gaps outer 1
