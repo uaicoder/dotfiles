@@ -110,10 +110,8 @@ export VIVADO_PATH=/opt/Xilinx/Vivado/$VIVADO_VERSION
 export PATH=$VIVADO_PATH/bin:$PATH
 source $VIVADO_PATH/settings64.sh
 
-
-
-
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+alias nv='nvim'
