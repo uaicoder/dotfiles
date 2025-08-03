@@ -19,7 +19,9 @@ null_ls.setup({
 
     -- C / C++ using Google style
     formatting.clang_format.with({
-      extra_args = { "--style=Google" },
+    extra_args = {
+    '--style={BasedOnStyle: Google, AllowShortArraysOnASingleLine: false, ColumnLimit: 80}'
+    },
     }),
 
     -- CMake

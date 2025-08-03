@@ -157,6 +157,7 @@ bindsym $mod+Control+Right move workspace to output right
 
 ###### ASSIGN APPLICATIONS TO WORKSPACES ######
 assign [class="firefox_firefox"] $ws1
+assign [class="Spotify"] $ws10
 
 
 # Float dialogs and popups by window type

@@ -34,6 +34,12 @@ return require('packer').startup(function(use)
 	use ('tpope/vim-fugitive')
 	use ('ThePrimeagen/vim-be-good')
 
+    use {
+      'mg979/vim-visual-multi',
+      branch = 'master'
+    }
+
+
 	use {
 		'VonHeikemen/lsp-zero.nvim',
 		branch = 'v1.x',
@@ -55,7 +61,6 @@ return require('packer').startup(function(use)
 			{'rafamadriz/friendly-snippets'},
 		}
 	}
-
     -- Copilot
     use {"github/copilot.vim"}
 
