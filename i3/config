@@ -54,7 +54,8 @@ bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute @DEFAULT_S
 bindsym XF86AudioMicMute    exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 ###### APPLICATION LAUNCHERS ######
-bindsym $mod+Return exec i3-sensible-terminal -e zsh
+bindsym $mod+Shift+Return exec i3-sensible-terminal -e zsh
+bindsym $mod+Return exec i3-sensible-terminal -e zsh -c 'nvim -c Dired'
 bindsym $mod+d exec --no-startup-id "rofi -show drun -font 'Inconsolata Nerd Font Mono 12'"
 bindsym $mod+Shift+s exec --no-startup-id flameshot gui
 

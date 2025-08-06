@@ -71,12 +71,12 @@ return require('packer').startup(function(use)
     }
     use ('nvimtools/none-ls.nvim')
 
-    use {
-      'nvim-tree/nvim-tree.lua',
-      requires = {
-        'nvim-tree/nvim-web-devicons', -- optional
-      },
-    }
+    -- use {
+    --   'nvim-tree/nvim-tree.lua',
+    --   requires = {
+    --     'nvim-tree/nvim-web-devicons', -- optional
+    --   },
+    -- }
 
     use {
       'nvim-lualine/lualine.nvim',
@@ -84,6 +84,21 @@ return require('packer').startup(function(use)
     }
 	use "terrortylor/nvim-comment"
 	require('nvim_comment').setup()
+
+    use {
+    "X3eRo0/dired.nvim",
+    requires = "MunifTanjim/nui.nvim",
+    config = function()
+        require("dired").setup {
+            path_separator = "/",
+            show_banner = false,
+            show_icons = false,
+            show_hidden = true,
+            show_dot_dirs = true,
+            show_colors = true,
+        }
+    end
+}
 
 
 end)
